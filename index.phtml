@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Amazon S3</title>
+    <style>
+        input[type="submit"] {
+            border-radius: 0;
+            border: 1px solid #999;
+        }
+    </style>
+</head>
+<body>
+<a href="/">Home</a>
+<?php if (isset($message)) { ?>
+    <?php if (is_array($message)) { ?>
+        <?php foreach ($message as $one) { ?>
+            <div class="message" style="border: 1px solid black">
+                <h4>Message</h4>
+                <p>Message id : <?= $one['MessageId'] ?></p>
+                <p>Message content : <?= $one['Body'] ?></p>
+            </div>
+        <?php }
+    } else { ?>
+        <div class="message">
+            <p><?= $message ?></p>
+        </div>
+    <?php }
+} ?>
+<?php if (isset($sended) && $sended != null) { ?>
+    <h1>Files upload successed</h1>
+<?php } ?>
+<?php if (isset($sendedEmail)) { ?>
+    <div class="email"><?= $sendedEmail ?></div>
+<?php } ?>
+
+
+<h2>Загрузка файлов на Amazon</h2>
+
+<form method="post" action="/post.php" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td colspan="2">
+                <input type="file" name="files" multiple>
+                <input type="submit" name="upload" value="Загрузить">
+            </td>
+        </tr>
+    </table>
+</form>
+<?php if (isset($listFiles)) { ?>
+
+    <h2>Список файлов и папок Amazon</h2>
+    <ul>
+
+        <?php foreach ($listFiles as $item) { ?>
+            <li>
+                <a href="https://s3.console.aws.amazon.com/s3/object/<?= $bucket ?>/<?= htmlspecialchars(rtrim($item['Key'], '/')) ?>?region=us-east-2&tab=overview"
+                   target="_blank"><?= $item['Key'] ?></a>
+                <form method="post" action="/post.php">
+                    <input type="hidden" name="remfile" value="<?= htmlspecialchars($item['Key']) ?>">
+                    <input type="submit" name="delete" value="Удалить">
+                </form>
+            </li>
+        <?php } ?>
+    </ul>
+
+<?php } ?>
+
+
+</body>
+</html>
