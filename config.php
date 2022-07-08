@@ -1,7 +1,7 @@
 <?php
 $credentials = [
-    'key' => 'AKIAQ4Q5FUQ6S5BHT3FY',
-    'secret' => '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',
+    'key' => '**',
+    'secret' => '**',
 ];
 
 $region = 'eu-north-1';
