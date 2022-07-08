@@ -1,7 +1,7 @@
 <?php
 $credentials = [
-    'key' => 'AKIAQ4Q5FUQ634MGH2NA',
-    'secret' => 'EiM9+bbGaYbIymFyHTj+BOK5ANIRVQry7oEeOm32',
+    'key' => '**',
+    'secret' => '**',
 ];
 
 $region = 'eu-north-1';// Your Amazon region for bucket and SQS
